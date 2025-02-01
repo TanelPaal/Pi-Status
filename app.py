@@ -7,10 +7,18 @@ app = Flask(__name__)
 
 def get_cpu_temperature():
     try:
-        temp = subprocess.check_output(['vcgencmd', 'measure_temp']).decode()
-        return float(temp.replace('temp=', '').replace('\'C\n', ''))
+        # Try reading from thermal zone first (more compatible method)
+        with open('/sys/class/thermal/thermal_zone0/temp', 'r') as f:
+            temp = float(f.read().strip()) / 1000.0
+            return temp
     except:
-        return 0
+        try:
+            # Fallback to vcgencmd
+            temp = subprocess.check_output(['vcgencmd', 'measure_temp']).decode()
+            return float(temp.replace('temp=', '').replace('\'C\n', ''))
+        except Exception as e:
+            print(f"Error getting temperature: {str(e)}")  # Debug print
+            return 0
 
 def get_system_stats():
     return {
