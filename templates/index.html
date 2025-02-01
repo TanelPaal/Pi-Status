@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raspberry Pi Status</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Raspberry Pi Status Monitor</h1>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h2>CPU</h2>
+                <p>Usage: <span id="cpu-percent">-</span>%</p>
+                <p>Temperature: <span id="cpu-temp">-</span>°C</p>
+            </div>
+            
+            <div class="stat-card">
+                <h2>Memory</h2>
+                <p>Used: <span id="memory-used">-</span> GB</p>
+                <p>Total: <span id="memory-total">-</span> GB</p>
+                <div class="progress-bar">
+                    <div id="memory-bar" class="progress"></div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <h2>Disk</h2>
+                <p>Used: <span id="disk-used">-</span> GB</p>
+                <p>Total: <span id="disk-total">-</span> GB</p>
+                <div class="progress-bar">
+                    <div id="disk-bar" class="progress"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
